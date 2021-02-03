@@ -1,0 +1,108 @@
+.spinner {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 30px solid lavender;
+  border-top: 30px solid tomato;
+  animation: spin 1s infinite;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -50px;
+  margin-left: -50px;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.wrapper {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  background: LightSalmon;
+  position: relative;
+  font-family: "Oswald", sans-serif;
+}
+
+.controlsContainer {
+  height: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.canvasContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 90%;
+}
+
+.button {
+  border: none;
+  background: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 2rem;
+  margin: 20px;
+  outline: none;
+}
+
+.button:hover {
+  color: tomato;
+}
+
+.button:active {
+  transform: scale(0.9);
+}
+
+.pageDisplay {
+  font-size: 1rem;
+  font-family: inherit !important;
+  border: 2px inset #000;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.dropDown {
+  position: absolute;
+  top: 20px;
+  right: 27px;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.dropDown:hover {
+  color: tomato;
+}
+
+.dropDown:active {
+  transform: scale(0.9);
+}
+
+.hint {
+  width: 200px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -106px;
+  font-size: 2rem;
+  text-align:center;
+}
+
+.hint > svg {
+  font-size: 80px;
+}

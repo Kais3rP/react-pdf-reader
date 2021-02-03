@@ -1,0 +1,47 @@
+.wrapper {
+  position: absolute;
+  top: 60px;
+  right: 18px;
+  width: 50px;
+  height: 100px;
+  background: FireBrick;
+  border-radius: 5px;
+}
+
+/* .close {
+  font-size: 2rem;
+  color: #000;
+  position: absolute;
+  top: 2px;
+  right: 10px;
+  cursor: pointer;
+  font-weight:900;
+}
+
+.close:hover {
+  color: tomato;
+}
+
+.close:active {
+  transform: scale(0.9);
+}
+ */
+.input {
+  display: none;
+}
+
+.label {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  font-size: 40px;
+  cursor: pointer;
+}
+
+.label:hover {
+  color: tomato;
+}
+
+.label:active {
+  transform: scale(0.9);
+}
