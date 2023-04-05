@@ -1,17 +1,17 @@
-import React, { useRef } from "react";
+import React from "react";
 import { MdPictureAsPdf } from "react-icons/md";
-import { wrapper, close, input, label } from "./style.module.css";
+import styles from "./style.module.css";
 
 export default function InputModal({ handleToggleModal, handlePdfLoad }) {
   return (
-    <div className={wrapper}>
-      <label htmlFor="xas78g92" className={label}>
+    <div className={styles.wrapper}>
+      <label htmlFor="xas78g92" className={styles.label}>
         <MdPictureAsPdf />
         <input
           id="xas78g92"
-          className={input}
+          className={styles.input}
           type="file"
-          onChange={e => {
+          onChange={(e) => {
             handlePdfLoad(e);
             handleToggleModal();
           }}

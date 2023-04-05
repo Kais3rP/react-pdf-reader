@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+// import worker from "pdfjs-dist/build/pdf.worker.js";
 import * as PDFJS from "pdfjs-dist";
 
 export function useLoadPdf(canvasRef) {
@@ -20,11 +21,10 @@ export function useLoadPdf(canvasRef) {
     const file = e.target.files[0];
     const reader = new FileReader();
 
-    reader.addEventListener("load", async e => {
+    reader.addEventListener("load", async (e) => {
       try {
         const typedarray = new Uint8Array(e.currentTarget.result);
-        PDFJS.GlobalWorkerOptions.workerSrc =
-          "//cdn.jsdelivr.net/npm/pdfjs-dist@2.6.347/build/pdf.worker.js";
+        PDFJS.GlobalWorkerOptions.workerSrc = `//cdn.jsdelivr.net/npm/pdfjs-dist@${PDFJS.version}/build/pdf.worker.js`;
         const pdfReader = PDFJS.getDocument(typedarray);
         const pdf = await pdfReader.promise;
         const pages = [];
@@ -57,32 +57,34 @@ export function useLoadPdf(canvasRef) {
       canvasRef.current.width = viewport.width || 500;
       renderContextRef.current = {
         canvasContext: ctx,
-        viewport: viewport
+        viewport: viewport,
       };
       setCurrentPage(1);
     }
-  }, [viewport]);
+  }, [canvasRef, viewport]);
 
   //EFFECT THAT WAITS FOR PDF TO BE READ BEFORE DISPLAYING IT TO CANVAS
 
   useEffect(() => {
+    if (!pdfPages) return;
     if (renderContextRef.current) renderPdf();
 
     async function renderPdf() {
-      await pdfPages[currentPage - 1].render(renderContextRef.current);
+      await pdfPages[currentPage - 1]?.render(renderContextRef.current);
       setIsLoading(false);
     }
-  }, [currentPage]);
+  }, [currentPage, pdfPages]);
 
   function handleIncrementPage() {
+    if (currentPage >= pdfPages.length - 1) return;
     if (pdfPages) setIsLoading(true);
-    setCurrentPage(curr => (curr % numOfPages) + 1);
+    setCurrentPage((curr) => (curr % numOfPages) + 1);
   }
 
   function handleDecrementPage() {
     if (currentPage <= 1) return;
     if (pdfPages) setIsLoading(true);
-    setCurrentPage(curr => curr - 1);
+    setCurrentPage((curr) => curr - 1);
   }
   return {
     handlePdfLoad,
@@ -91,6 +93,6 @@ export function useLoadPdf(canvasRef) {
     currentPage,
     isLoading,
     hasLoaded,
-    numOfPages
+    numOfPages,
   };
 }

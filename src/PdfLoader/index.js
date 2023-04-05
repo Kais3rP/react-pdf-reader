@@ -4,16 +4,7 @@ import { GrDocumentPdf } from "react-icons/gr";
 import { useLoadPdf } from "./hooks/useLoadPdf";
 import { useHandleModal } from "./hooks/useHandleModal";
 import InputModal from "../InputModal";
-import {
-  spinner,
-  wrapper,
-  canvasContainer,
-  controlsContainer,
-  button,
-  pageDisplay,
-  dropDown,
-  hint
-} from "./style.module.css";
+import styles from "./style.module.css";
 
 export default function PdfLoader() {
   const canvasRef = useRef(null);
@@ -25,14 +16,14 @@ export default function PdfLoader() {
     currentPage,
     isLoading,
     hasLoaded,
-    numOfPages
+    numOfPages,
   } = useLoadPdf(canvasRef);
 
   const { toggleModal, handleToggleModal } = useHandleModal();
 
   return (
-    <div className={wrapper}>
-      <div className={dropDown}>
+    <div className={styles.wrapper}>
+      <div className={styles.dropDown}>
         {toggleModal ? (
           <IoMdArrowDropupCircle onPointerDown={handleToggleModal} />
         ) : (
@@ -45,25 +36,27 @@ export default function PdfLoader() {
           handleToggleModal={handleToggleModal}
         />
       )}
-      {(!hasLoaded && !isLoading) && (
-        <div className={hint}>
+      {!hasLoaded && !isLoading && (
+        <div className={styles.hint}>
           <GrDocumentPdf />
           <h2>Previewer</h2>
         </div>
       )}
-      <div className={canvasContainer}>
-        {isLoading && <div className={spinner} />}
+      <div className={styles.canvasContainer}>
+        {isLoading && <div className={styles.spinner} />}
         <canvas ref={canvasRef} />
       </div>
-      <div className={controlsContainer}>
+      <div className={styles.controlsContainer}>
         {!isLoading && (
-          <button className={button} onClick={handleDecrementPage}>
+          <button className={styles.button} onClick={handleDecrementPage}>
             &lt;
           </button>
         )}
-        <div className={pageDisplay}>{currentPage || 0}/{numOfPages || 0}</div>
+        <div className={styles.pageDisplay}>
+          {currentPage || 0}/{numOfPages || 0}
+        </div>
         {!isLoading && (
-          <button className={button} onClick={handleIncrementPage}>
+          <button className={styles.button} onClick={handleIncrementPage}>
             &gt;
           </button>
         )}
